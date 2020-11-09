@@ -1,0 +1,39 @@
+{
+  "name": "electron-auto-update-my-example",
+  "version": "1.0.15",
+  "description": "electron update test",
+  "main": "main.js",
+  "author": "Shelemekh",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build-electron:win": "mkdir -p wwwroot && powershell Copy-Item -Path .\\dist\\* -Destination .\\wwwroot -Recurse",
+    "build-electron-copy:win": "powershell Copy-Item -Path .\\dist\\* -Destination .\\wwwroot -Recurse -force",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
+    "wb": "http-server wwwroot/ -p 8080",
+    "release": "build"
+  },
+  "devDependencies": {
+    "electron": "^9.2.0",
+    "electron-builder": "^22.9.1"
+  },
+  "dependencies": {
+    "electron-log": "^4.3.0",
+    "electron-updater": "^4.3.5",
+    "http-server": "^0.12.3"
+  },
+  "build": {
+    "appId": "com.example.ElectronAutoUpdate",
+    "extends": null,
+    "win": {
+      "icon": "build/icon.ico"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1:8080/"
+      }
+    ]
+  }
+}
